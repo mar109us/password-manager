@@ -29,6 +29,6 @@ button {
     justify-self: end;
 }
 
-#state_show_password {
+#page_password {
     display: none;
 }

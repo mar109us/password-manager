@@ -1,31 +1,30 @@
-
 const button_password = document.getElementById("button_password")
 
+const page = {
+    default: document.getElementById("page_default"),
+    password: document.getElementById("page_password"),
+}
+
 const state = {
-    page: {
-        default: document.getElementById("state_default"),
-        password: document.getElementById("state_show_password"),
-    },
+    show(recieved_page) {
+        const page_to_change = page[recieved_page]
 
-    show(specified_page) {
-        const show_this_page = this.page[specified_page]
-
-        if (show_this_page) {
-            show_this_page.style.display = "block"
+        if (page_to_change) {
+            page_to_change.style.display = "block"
         }
     },
 
-    hide(specified_page) {
-        const hide_this_page = this.page[specified_page]
+    hide(recieved_page) {
+        const page_to_change = page[recieved_page]
 
-        if (hide_this_page) {
-            hide_this_page.style.display = "none"
+        if (page_to_change) {
+            page_to_change.style.display = "none"
         }
     },
 }
 
-button_password.addEventListener("click", function_state_show_password)
-    function function_state_show_password() {
+button_password.addEventListener("click", page_password_show)
+    function page_password_show() {
         state.hide("default")
         state.show("password")
     }
