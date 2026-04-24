@@ -17,10 +17,18 @@ button {
 }
 
 .content {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     padding: 10px;
     gap: 10px;
     background-color: rgb(118, 118, 118);
+}
 
+.grid_item_position_right {
+    grid-column-start: 4;
+    justify-self: end;
+}
+
+#state_show_password {
+    display: none;
 }
