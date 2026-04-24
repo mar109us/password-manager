@@ -1,30 +1,30 @@
-const button_password = document.getElementById("button_password")
+const buttonPassword = document.getElementById("button-password")
 
 const page = {
-    default: document.getElementById("page_default"),
-    password: document.getElementById("page_password"),
+    default: document.getElementById("page-default"),
+    password: document.getElementById("page-password"),
 }
 
 const state = {
-    show(recieved_page) {
-        const page_to_change = page[recieved_page]
+    show(calledPage) {
+        const pageToChange = page[calledPage]
 
-        if (page_to_change) {
-            page_to_change.style.display = "block"
+        if (pageToChange) {
+            pageToChange.style.display = "block"
         }
     },
 
-    hide(recieved_page) {
-        const page_to_change = page[recieved_page]
+    hide(calledPage) {
+        const pageToChange = page[calledPage]
 
-        if (page_to_change) {
-            page_to_change.style.display = "none"
+        if (pageToChange) {
+            pageToChange.style.display = "none"
         }
     },
 }
 
-button_password.addEventListener("click", page_password_show)
-    function page_password_show() {
+buttonPassword.addEventListener("click", pagePasswordShow)
+    function pagePasswordShow() {
         state.hide("default")
         state.show("password")
     }

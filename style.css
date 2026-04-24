@@ -24,11 +24,11 @@ button {
     background-color: rgb(118, 118, 118);
 }
 
-.grid_item_position_right {
+.grid-item-position-right {
     grid-column-start: 4;
     justify-self: end;
 }
 
-#page_password {
+#page-password {
     display: none;
 }
