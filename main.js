@@ -1,8 +1,24 @@
 const id = (calledId) => document.getElementById(calledId);
-const showCss = (element) => (element.style.display = "block");
-const hideCss = (element) => (element.style.display = "none");
 
-const elements = {
+const showElement = (element) => (element.style.display = "block");
+const hideElement = (element) => (element.style.display = "none");
+
+/* const page = {
+	default: {
+		id: id("page-default"),
+		buttons: {
+			password: id("button-password"),
+			new: id,
+			settings: id,
+		},
+	},
+
+	password: {
+		id: id("page-password"),
+	},
+}; */
+
+const element = {
 	pages: {
 		default: id("page-default"),
 		password: id("page-password"),
@@ -14,24 +30,26 @@ const elements = {
 
 const states = {
 	show(pageName) {
-		const pageToChange = elements.pages[pageName];
+		const pageToChange = element.pages[pageName];
 
 		if (pageToChange) {
-			showCss(pageToChange);
+			for (const allPages in element.pages) {
+				states.hide(allPages);
+			}
+			showElement(pageToChange);
 		}
 	},
 
 	hide(pageName) {
-		const pageToChange = elements.pages[pageName];
+		const pageToChange = element.pages[pageName];
 
 		if (pageToChange) {
-			hideCss(pageToChange);
+			hideElement(pageToChange);
 		}
 	},
 };
 
-elements.buttons.password.addEventListener("click", pagePasswordShow);
+element.buttons.password.addEventListener("click", pagePasswordShow);
 function pagePasswordShow() {
-	states.hide("default");
 	states.show("password");
 }
