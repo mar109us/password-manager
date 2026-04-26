@@ -1,46 +1,72 @@
-const id = (calledId) => document.getElementById(calledId);
+const getElement = (calledId) => document.getElementById(calledId);
 
 const showElement = (element) => (element.style.display = "block");
 const hideElement = (element) => (element.style.display = "none");
 
 const page = {
 	default: {
-		id: id("page-default"),
-		buttons: {
-			password: id("button-password"),
-			new: id,
-			settings: id,
+		id: getElement("page-default"),
+		button: {
+			password: getElement("button-password"),
+			new: getElement,
+			settings: getElement,
 		},
 	},
 
 	password: {
-		id: id("page-password"),
+		id: getElement("page-password"),
 	},
 };
 
-function findKey(obj, keyToFind) {
-	return Object.entries(obj).reduce(
-		(acc, [key, value]) =>
+function findKey(selectedObject, keyToFind) {
+	return Object.entries(selectedObject).reduce(
+		(keyValue, [key, value]) =>
 			key === keyToFind
-				? acc.concat(value)
+				? keyValue.concat(value)
 				: typeof value === "object"
-					? acc.concat(findKey(value, keyToFind))
-					: acc,
+					? keyValue.concat(findKey(value, keyToFind))
+					: keyValue,
 		[],
 	);
 }
 
 console.log(findKey(page, "id"));
 
+const state = {
+	show(pageName) {
+		const pageToChange = page[pageName];
+
+		if (pageToChange) {
+			findKey(page, "id").forEach((key) => {
+				hideElement(key);
+			});
+			showElement(pageToChange.id);
+		}
+	},
+
+	hide(pageName) {
+		const pageToChange = page[pageName];
+
+		if (pageToChange) {
+			hideElement(pageToChange.id);
+		}
+	},
+};
+
+page.default.button.password.addEventListener("click", pagePasswordShow);
+function pagePasswordShow() {
+	state.show("password");
+}
+
 /* console.log(Object.keys(page.id)); */
 
-const element = {
+/* const element = {
 	pages: {
-		default: id("page-default"),
-		password: id("page-password"),
+		default: getElement("page-default"),
+		password: getElement("page-password"),
 	},
 	buttons: {
-		password: id("button-password"),
+		password: getElement("button-password"),
 	},
 };
 
@@ -63,9 +89,9 @@ const states = {
 			hideElement(pageToChange);
 		}
 	},
-};
+}; */
 
-element.buttons.password.addEventListener("click", pagePasswordShow);
+/* element.buttons.password.addEventListener("click", pagePasswordShow);
 function pagePasswordShow() {
 	states.show("password");
-}
+} */
