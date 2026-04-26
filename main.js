@@ -3,7 +3,7 @@ const id = (calledId) => document.getElementById(calledId);
 const showElement = (element) => (element.style.display = "block");
 const hideElement = (element) => (element.style.display = "none");
 
-/* const page = {
+const page = {
 	default: {
 		id: id("page-default"),
 		buttons: {
@@ -16,7 +16,23 @@ const hideElement = (element) => (element.style.display = "none");
 	password: {
 		id: id("page-password"),
 	},
-}; */
+};
+
+function findKey(obj, keyToFind) {
+	return Object.entries(obj).reduce(
+		(acc, [key, value]) =>
+			key === keyToFind
+				? acc.concat(value)
+				: typeof value === "object"
+					? acc.concat(findKey(value, keyToFind))
+					: acc,
+		[],
+	);
+}
+
+console.log(findKey(page, "id"));
+
+/* console.log(Object.keys(page.id)); */
 
 const element = {
 	pages: {
