@@ -7,17 +7,28 @@ const page = {
 	default: {
 		id: getElement("page-default"),
 		button: {
-			password: getElement("button-password"),
-			new: getElement,
-			settings: getElement,
+			password: getElement("DEFAULT-button-password"),
+			new: getElement("DEFAULT-button-new"),
+			settings: getElement("DEFAULT-button-settings"),
 		},
 	},
 
 	password: {
 		id: getElement("page-password"),
+		button: {
+			back: getElement("PASSWORD-button-back"),
+			show: getElement("PASSWORD-button-password-toggle"),
+			qr: getElement("PASSWORD-button-qr"),
+			options: getElement("PASSWORD-button-options"),
+		},
 	},
 };
 
+// get all keys from designated object
+// take each key that match requested key and get the key value
+// magic ternary conditionals, hope to understand it in the future
+// as far as i understand its the same as an if else.
+// need to understand concat
 function findKey(selectedObject, keyToFind) {
 	return Object.entries(selectedObject).reduce(
 		(keyValue, [key, value]) =>
@@ -29,8 +40,6 @@ function findKey(selectedObject, keyToFind) {
 		[],
 	);
 }
-
-console.log(findKey(page, "id"));
 
 const state = {
 	show(pageName) {
@@ -53,45 +62,12 @@ const state = {
 	},
 };
 
-page.default.button.password.addEventListener("click", pagePasswordShow);
-function pagePasswordShow() {
+page.default.button.password.addEventListener("click", goToPasswordFromDefault);
+function goToPasswordFromDefault() {
 	state.show("password");
 }
 
-/* console.log(Object.keys(page.id)); */
-
-/* const element = {
-	pages: {
-		default: getElement("page-default"),
-		password: getElement("page-password"),
-	},
-	buttons: {
-		password: getElement("button-password"),
-	},
-};
-
-const states = {
-	show(pageName) {
-		const pageToChange = element.pages[pageName];
-
-		if (pageToChange) {
-			for (const allPages in element.pages) {
-				states.hide(allPages);
-			}
-			showElement(pageToChange);
-		}
-	},
-
-	hide(pageName) {
-		const pageToChange = element.pages[pageName];
-
-		if (pageToChange) {
-			hideElement(pageToChange);
-		}
-	},
-}; */
-
-/* element.buttons.password.addEventListener("click", pagePasswordShow);
-function pagePasswordShow() {
-	states.show("password");
-} */
+page.password.button.back.addEventListener("click", goToDefaultFromPassword);
+function goToDefaultFromPassword() {
+	state.show("default");
+}
