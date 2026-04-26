@@ -24,21 +24,18 @@ const page = {
 	},
 };
 
-// get all keys from designated object
-// take each key that match requested key and get the key value
-// magic ternary conditionals, hope to understand it in the future
-// as far as i understand its the same as an if else.
-// need to understand concat
 function findKey(selectedObject, keyToFind) {
-	return Object.entries(selectedObject).reduce(
-		(keyValue, [key, value]) =>
-			key === keyToFind
-				? keyValue.concat(value)
-				: typeof value === "object"
-					? keyValue.concat(findKey(value, keyToFind))
-					: keyValue,
-		[],
-	);
+	return Object.entries(selectedObject).reduce((keyValue, [key, value]) => {
+		if (key === keyToFind) {
+			return keyValue.concat(value);
+		}
+
+		if (typeof value === "object" && value !== null) {
+			return keyValue.concat(findKey(value, keyToFind));
+		}
+
+		return keyValue;
+	}, []);
 }
 
 const state = {
